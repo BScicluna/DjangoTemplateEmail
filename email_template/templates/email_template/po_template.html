@@ -1,16 +1,28 @@
-
 <html>
   <head>
-    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto Mono"
+      rel="stylesheet"
+    />
     <style>
       table {
         border-collapse: collapse;
         width: 100%;
+        font-family: IBM Plex Sans;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 17px;
       }
 
-      td, th {
-        border: 1px solid black;
-        padding: 8px;
+      body {
+        padding: 20px;
+        background-color: #d6d9df;
+      }
+
+      td,
+      th {
+        /* border: 1px solid black; */
+        /* padding: 8px; */
         text-align: left;
       }
 
@@ -24,19 +36,24 @@
         max-width: 8% !important;
       }
 
+      .text-row {
+        font-family: IBM Plex Mono;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 14px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+
       .accept-button {
-        background-color: #5a36be;
-        color: #FFF!important;
-        padding: 12px 20px;
+        color: #fff !important;
         border-radius: 4px;
         text-decoration: none;
         display: inline-block;
       }
 
       .deny-button {
-        background-color: #a595d3;
-        color: #FFF!important;
-        padding: 12px 20px;
+        color: #fff !important;
         border-radius: 4px;
         text-decoration: none;
         display: inline-block;
@@ -61,7 +78,7 @@
         width: 100%;
         gap: 10px;
         margin: 10px 0px 20px 0px;
-        text-decoration: none!important;
+        text-decoration: none !important;
       }
 
       .header-cell {
@@ -79,134 +96,417 @@
       .no-border {
         border: none;
       }
+
+      .input-container {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+      }
+
+      .input-container span {
+        height: 100%;
+      }
+
+      .adornment {
+        font-size: 14px;
+        color: #999;
+        padding-left: 10px;
+        border-left: 0.5px solid #d5d7e3;
+        height: 100%;
+        display: inline;
+      }
+
+      .filled-cell {
+        background-color: white;
+        border-radius: 4px;
+      }
+
+      /* style for select input */
+      .text-field {
+        width: 100%;
+        height: 35px;
+        background-color: white;
+      }
+
+      .select {
+        width: 100%;
+        height: 100%;
+        padding: 0 10px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        font-weight: 400;
+        color: #555;
+
+        position: relative;
+      }
+
+      .select:focus {
+        outline: none;
+      }
+
+      .blue-circle {
+        width: 4px;
+        height: 4px;
+        border: 1px solid #6a3cec;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
     </style>
   </head>
   <body id="body">
     {% for line in body_lines %}
-      <p>{{ line }}</p>
+    <p>{{ line }}</p>
     {% endfor %}
-    <h4>The below is a preview only. Please read the PDF attached for full details.</h4>
-    <h4>If the attached PO is suitable, please accept the PO with the buttons below.</h4>
+    <h4>
+      The below is a preview only. Please read the PDF attached for full
+      details.
+    </h4>
+    <h4>
+      If the attached PO is suitable, please accept the PO with the buttons
+      below.
+    </h4>
+
+    <table class="header">
+      <tr>
+        <td style="width: 20%"></td>
+        <td style="width: 20%"></td>
+        <td style="width: 20%"></td>
+        <td style="width: 20%"></td>
+        <td style="width: 20%">
+          <img
+            src="https://i.ibb.co/RQ0qNSS/Group-20.png"
+            alt="Byson"
+            width="105"
+          />
+          <h2 style="font-size: 14px; font-weight: 500; line-height: 18px">
+            {{ company_data.name }}
+          </h2>
+          <p style="font-size: 12px; font-weight: 400">
+            {{ company_data.email }}
+          </p>
+          <p style="font-size: 12px; font-weight: 400">
+            {{ company_data.companyAbn }}
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <br />
 
     <table>
       <tr>
-        <td class="c1"><img src="{{ company_data.logo }}" width="80"/></td>
-        <td class="c1"/>
-        <td class="c2"/>
-        <th class="c1">PURCHASE ORDER:</th>
-        <th class="c1">{{ bill_data.number }}</th>
-      </tr>
-      <tr>
-        <th class="c1">To:</th>
-        <td class="c1">{{ bill_data.supplier }}</td>
-        <td class="c2"/>
-        <th class="c1">From:</th>
-        <td class="c1">{{ company_data.name }}</td>
-      </tr>
-      <tr>
-        <th class="c1">ABN:</th>
-        <td class="c1">{{ supplier_abn }}</td>
-        <td class="c2"/>
-        <th class="c1">ABN:</th>
-        <td class="c1">{{ company_data.abn }}</td>
-      </tr>
-      <tr>
-        <th class="c1">Site Address</th>
-        <td class="c1">{{ site_address }}</td>
-        <td class="c2"/>
-        <th class="c1"></th>
-        <td class="c1"></td>
-      </tr>
-      <tr>
-        <th class="c1">Start Date</th>
-        <td class="c1">{{ bill_data.start_date }}</td>
-        <td class="c2"/>
-        <th class="c1">End Date</th>
-        <td class="c1">{{ bill_data.end_date }}</td>
-      </tr>
-      <tr>
-        <th class="c1">Payment Terms</th>
-        <td class="c1">{{ bill_data.payment_terms }} {{ bill_data.payment_terms_suffix }}</td>
-        <td class="c2"/>
-        <th class="c1">Damages</th>
-        <td class="c1">{{ bill_data.damages }} per {{ bill_data.damages_period }}</td>
+        <td>
+          <h2 style="color: #5c49d2">
+            <img
+              src="https://i.ibb.co/YLwnTBS/reader.png"
+              alt="reader"
+              width="24"
+            />
+            Purchase Order
+          </h2>
+          <p style="font-size: 13px; color: #301b68">
+            Please review the purchase order carefully and approve (or) for
+            further discussion. Below is a preview only, for complete
+            information about this purchase order, please download the attached
+            PDF
+          </p>
+        </td>
       </tr>
     </table>
-    <br/>
+
+    <br />
+
     <table>
-      <tr>
-        <th>Notes:</th>
+      <tr class="text-row">
+        <td style="width: 22%"><span>Order #</span></td>
+        <td style="width: 12%"></td>
+        <td style="width: 33%"><span>Supplier</span></td>
+        <td style="width: 12%"></td>
+        <td style="width: 22%"><span>Reference</span></td>
       </tr>
       <tr>
-        <td>{{ bill_data.special_conditions }}</td>
+        <td style="width: 22%" class="filled-cell">{{ bill_data.number }}</td>
+        <td style="width: 12%"></td>
+        <td style="width: 33%; padding-right: 5px" class="filled-cell">
+          <div class="text-field">
+            <select class="select" name="item">
+              <option value="item 1" selected>{{ bill_data.supplier }}</option>
+            </select>
+          </div>
+        </td>
+        <td style="width: 12%"></td>
+        <td style="width: 22%" class="filled-cell">
+          {{ bill_data.reference }}
+        </td>
       </tr>
     </table>
-    <br/>
+
+    <br />
+
     <table>
+      <tr class="text-row">
+        <td style="width: 19%"><span>Start Date</span></td>
+        <td style="width: 8%; padding: 0px 25px" style="padding: 0px 25px"></td>
+        <td style="width: 19%"><span>End Date</span></td>
+        <td style="width: 8%; padding: 0px 25px" style="padding: 0px 25px"></td>
+        <td style="width: 19%"><span>Payment Terms</span></td>
+        <td style="width: 8%; padding: 0px 25px" style="padding: 0px 25px"></td>
+        <td style="width: 19%"><span>Liquidated Damages</span></td>
+      </tr>
       <tr>
-        <th>Description</th>
-        <th class="center-align">Qty</th>
-        <th class="center-align">Unit</th>
-        <th class="center-align">Unit Cost</th>
-        <th class="center-align">Line Cost</th>
+        <td style="width: 19%" class="filled-cell">
+          {{ bill_data.startDate }}
+        </td>
+        <td style="width: 8%"></td>
+        <td style="width: 19%" class="filled-cell">{{ bill_data.endDate }}</td>
+        <td style="width: 8%"></td>
+        <td style="width: 19%" class="filled-cell">
+          <table>
+            <tr style="height: 100%">
+              <td style="width: 80%">
+                <span>{{ bill_data.payment_terms }}</span>
+              </td>
+              <td style="width: 20%">
+                <div class="adornment">
+                  {{ bill_data.payment_terms_suffix }}
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td style="width: 8%"></td>
+        <td style="width: 19%" class="filled-cell">
+          <table>
+            <tr style="height: 100%">
+              <td style="width: 80%">
+                <span>${{ bill_data.damages|floatformat:0 }}</span>
+              </td>
+              <td style="width: 20%">
+                <div class="adornment">{{ bill_data.damages_period }}</div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <br />
+    <table>
+      <tr class="text-row">
+        <th>Special Instruction</th>
+      </tr>
+      <tr style="height: 63px; vertical-align: top; padding: 10px 0px">
+        <td class="filled-cell">{{ bill_data.special_conditions }}</td>
+      </tr>
+    </table>
+    <br />
+    <table>
+      <tr class="text-row">
+        <th style="width: 60%">Description</th>
+        <th style="width: 7%" class="center-align">Qty</th>
+        <th style="width: 7%" class="center-align">Unit</th>
+        <th style="width: 11%" class="center-align">Unit Cost</th>
+        <th style="width: 15%" class="center-align">Line Cost</th>
       </tr>
       {% for line in bill_data.lines %}
-        <tr>
-          <td>{{ line.description }}</td>
-          <td class="right-align">{{ line.quantity }}</td>
-          <td class="center-align">{{ line.unit }}</td>
-          <td class="right-align">${{ line.item_cost|floatformat:2 }}</td>
-          <td class="right-align">${{ line.line_cost|floatformat:2 }}</td>
-        </tr>
+      <tr class="filled-cell">
+        <td style="width: 60%; padding-left: 10px">
+          <div style="display: inline-block" class="blue-circle"></div>
+          <span style="display: inline-block">{{ line.description }}</span>
+        </td>
+        <td style="width: 7%" class="center-align">
+          {{ line.quantity|floatformat:0 }}
+        </td>
+        <td style="width: 7%" class="center-align">
+          <div class="text-field">
+            <select class="select" name="item">
+              <option value="item 1" selected>{{ line.unit }}</option>
+            </select>
+          </div>
+        </td>
+        <td style="width: 11%" class="center-align">
+          ${{ line.item_cost|floatformat:2 }}
+        </td>
+        <td style="width: 15%" class="center-align">
+          ${{ line.line_cost|floatformat:2 }}
+        </td>
+      </tr>
       {% endfor %}
       <tr>
-        <td class="no-border"></td>
-        <td class="no-border"></td>
-        <td class="no-border"></td>
-        <td class="no-border header-cell right-align">Sub-Total</td>
-        <td class="no-border right-align">${{ bill_data.sub_total }}</td>
+        <td style="width: 60%" class="no-border"></td>
+        <td style="width: 7%" class="no-border"></td>
+        <td style="width: 7%" class="no-border"></td>
+        <td style="width: 11%" class="no-border header-cell">Sub-Total</td>
+        <td style="width: 15%" class="no-border right-align">
+          ${{ bill_data.sub_total }}
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 60%" class="no-border"></td>
+        <td style="width: 7%" class="no-border"></td>
+        <td style="width: 7%" class="no-border"></td>
+        <td style="width: 11%" class="no-border header-cell">Tax</td>
+        <td style="width: 15%" class="no-border right-align">
+          ${{ bill_data.tax }}
+        </td>
       </tr>
       <tr>
         <td class="no-border"></td>
         <td class="no-border"></td>
         <td class="no-border"></td>
-        <td class="no-border header-cell right-align">Tax</td>
-        <td class="no-border right-align">${{ bill_data.tax }}</td>
-      </tr>
-      <tr>
-        <td class="no-border"></td>
-        <td class="no-border"></td>
-        <td class="no-border"></td>
-        <td class="no-border header-cell right-align">Total</td>
-        <td class="no-border header-cell right-align">${{ bill_data.total }}</td>
+        <td
+          class="no-border header-cell"
+          style="
+            font-weight: 500;
+            font-weight: 500;
+            border-top: 1px solid #000000;
+            border-bottom: 1px solid #000000;
+          "
+        >
+          Total
+        </td>
+        <td
+          class="no-border header-cell right-align"
+          style="
+            font-weight: 500;
+            border-top: 1px solid #000000;
+            border-bottom: 1px solid #000000;
+          "
+        >
+          ${{ bill_data.total }}
+        </td>
       </tr>
     </table>
     {% if include_buttons %}
-      <div class="button-container">
-        <a href="{{ accept_url }}" class="accept-button" target="_blank" style="margin-left: 20px; text-align: center; width: 100px; float: right;">Accept</a>
-        <a href="{{ deny_url }}" class="deny-button" target="_blank" style="text-align: center; width: 100px; float: right;">Deny</a>
-      </div>
-    {% endif %}
-    <div class="logo-container">
-      <svg xmlns="http://www.w3.org/2000/svg" width="66" height="62" viewBox="0 0 66 62" fill="none">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M30.5537 30.9491C24.2195 30.9491 19.0844 36.127 19.0844 42.5146V54.0805H30.5537C36.8872 54.0805 42.0226 48.9019 42.0226 42.5146C42.0226 36.127 36.8872 30.9491 30.5537 30.9491Z" fill="#A282FC"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.76 45.2172C16.4655 48.9518 13.6182 51.1731 7.65175 51.1731C6.03078 51.1268 4.40633 51.1496 2.78502 51.1868C1.39129 51.2191 0.114491 52.6295 0 54.0609C0.158339 54.0816 7.36605 54.0915 10.8091 54.0609C13.0307 54.0409 15.5401 53.5289 17.76 51.5676V45.2172Z" fill="#BAA1FF"/>
-        <path d="M36.4227 53.9718H45.9126C45.9126 49.9003 44.3504 49.0655 41.634 48.9518C40.4097 51.0854 38.5981 52.8344 36.4227 53.9718Z" fill="#A282FC"/>
-        <path d="M42.9385 39.2934C42.9385 39.2934 42.9413 39.3071 42.9451 39.3292C42.9938 39.5219 43.038 39.717 43.0784 39.9135C43.1696 40.2402 43.2764 40.4367 43.2983 39.71C43.2994 39.5131 43.2994 39.3008 43.2994 39.0751V39.0727C43.3116 31.9137 43.3474 13.9901 43.3474 13.9901L26.0638 29.9468C25.5689 30.4991 25.7294 30.5412 25.9312 30.489C26.0119 30.457 26.0941 30.4289 26.1755 30.3991C26.196 30.3893 26.2093 30.383 26.2093 30.383C26.2093 30.383 26.1999 30.3879 26.1901 30.3939C27.5525 29.892 29.0207 29.613 30.5537 29.613C36.5065 29.613 41.5166 33.7364 42.9375 39.2994C42.9375 39.2969 42.9385 39.2934 42.9385 39.2934Z" fill="#AE91FE"/>
-        <path d="M50.8614 48.9364V36.3192L44.7012 39.9242C45.7657 44.2456 46.8295 46.6947 47.8979 51.015C48.1474 52.0236 48.4383 53.022 48.6955 53.9719H55.9342C55.9342 49.5193 54.0661 48.9364 50.8614 48.9364Z" fill="#A282FC"/>
-        <path d="M52.3254 7.98617C52.3254 7.36116 52.3668 0.00602055 52.3668 0.00602055C50.5809 -0.0108242 51.1402 0.0133905 49.3553 0.0133905C45.4027 0.0133905 44.7012 2.86014 44.7012 7.41907V10.6613C44.705 10.994 44.7078 11.3274 44.7106 11.6608C44.7175 12.4823 44.9883 12.7381 45.8071 12.7539H47.9911C48.7004 12.7399 52.3254 12.7539 52.3254 7.98617Z" fill="#BAA1FF"/>
-        <path d="M65.9662 3.0081C65.9662 3.0081 62.8541 2.92738 61.9197 2.92738C57.6574 2.92738 58.0549 0.0199432 55.6133 0.0199432C55.5952 0.0199432 53.7971 0.0195923 53.6457 0.0195923C53.6457 0.0195923 53.6043 7.78178 53.6043 7.98602C53.6043 11.8038 51.6524 14.0279 48.2483 14.089L45.8068 14.0894C45.3843 14.0816 45.0168 14.0108 44.7012 13.8844V16.4076H55.3697C55.3697 12.7537 56.6639 11.3879 60.9154 11.3879C65.273 11.3879 65.8194 9.60906 65.9422 7.9039C66.0567 6.33209 65.9662 4.74554 65.9662 3.0081Z" fill="#A282FC"/>
-        <path d="M55.4101 17.8193C55.4101 17.8193 46.9273 17.8446 45.3933 17.8207C45.3874 17.8207 45.3829 17.8193 45.377 17.8193H44.7012V38.2543C44.7012 38.2543 51.9144 34.2836 53.6148 32.1657C54.7343 30.7701 55.3927 29.4327 55.4101 27.6362C55.4303 25.6363 55.4101 17.8193 55.4101 17.8193Z" fill="#BAA2FF"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M33.2212 56.2075C33.0405 56.0444 32.8079 55.9259 32.5206 55.8505C32.2345 55.7755 31.8877 55.7384 31.4795 55.7384H28.9931C28.5865 55.7384 28.2403 55.7755 27.9566 55.8505C27.6719 55.9259 27.4401 56.0444 27.2592 56.2075C27.0798 56.3702 26.9489 56.5813 26.8649 56.8392C26.7833 57.0971 26.7413 57.4127 26.7413 57.7849V59.1187C26.7413 59.49 26.7833 59.806 26.8649 60.0673C26.9489 60.3286 27.0797 60.5407 27.2592 60.7033C27.4399 60.8664 27.6717 60.9834 27.9566 61.0554C28.2401 61.1286 28.5864 61.1653 28.9931 61.1653H31.4794C31.8875 61.1653 32.2345 61.1286 32.5205 61.0554C32.8078 60.9836 33.0404 60.8664 33.2211 60.7033C33.4004 60.5405 33.5307 60.3286 33.6105 60.0673C33.6918 59.806 33.7311 59.49 33.7311 59.1187V57.7849C33.7311 57.4127 33.6919 57.0971 33.6105 56.8392C33.5308 56.5813 33.4005 56.3702 33.2212 56.2075ZM32.5049 59.028C32.5049 59.2275 32.4864 59.3955 32.4523 59.5307C32.4176 59.667 32.3605 59.7744 32.2785 59.8545C32.1982 59.9332 32.0896 59.9896 31.9527 60.0232C31.8154 60.0557 31.6429 60.0718 31.433 60.0718H29.0387C28.8297 60.0718 28.6564 60.0557 28.5192 60.0232C28.3829 59.9896 28.2732 59.9332 28.1932 59.8545C28.1118 59.7744 28.0539 59.667 28.0192 59.5307C27.9845 59.3957 27.9676 59.2275 27.9676 59.028V57.8769C27.9676 57.6768 27.9845 57.5088 28.0192 57.3739C28.0541 57.2379 28.1118 57.1303 28.1932 57.0515C28.2732 56.9715 28.3829 56.9153 28.5192 56.8817C28.6564 56.8494 28.8296 56.8319 29.0387 56.8319H31.4329C31.6428 56.8319 31.8154 56.8494 31.9525 56.8817C32.0894 56.9153 32.1982 56.9715 32.2784 57.0515C32.3604 57.1303 32.4174 57.2379 32.4521 57.3739C32.4862 57.5087 32.5047 57.6768 32.5047 57.8769V59.028H32.5049Z" fill="#A282FC"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M41.6094 55.812C41.6035 55.7629 41.564 55.7384 41.4863 55.7384H40.3681C40.3024 55.7384 40.2502 55.7485 40.212 55.7657C40.1754 55.7835 40.1387 55.8108 40.1071 55.8472L38.2426 57.6864L36.3784 55.8472C36.3454 55.8108 36.3108 55.7835 36.2724 55.7657C36.2337 55.7485 36.1819 55.7384 36.1165 55.7384H34.999C34.9226 55.7384 34.8818 55.7629 34.8758 55.812C34.8706 55.8615 34.8845 55.9042 34.9169 55.9406L37.4649 58.4548L34.9226 60.9633C34.8838 61 34.8693 61.0418 34.8771 61.091C34.8858 61.1399 34.9275 61.1653 35.0033 61.1653H36.1221C36.188 61.1653 36.2395 61.1565 36.2783 61.1413C36.3148 61.1261 36.3512 61.0972 36.3839 61.0554L38.2426 59.2212L40.1023 61.0554C40.1351 61.0972 40.1701 61.1261 40.2078 61.1413C40.2452 61.1563 40.2977 61.1653 40.3622 61.1653H41.4814C41.5583 61.1653 41.5997 61.1399 41.6074 61.091C41.6161 61.0419 41.6007 61 41.5639 60.9633L39.0204 58.4548L41.5676 55.9406C41.6009 55.9042 41.6142 55.8615 41.6094 55.812Z" fill="#A282FC"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.1647 60.0641H44.8451C44.6324 60.0641 44.4551 60.0472 44.3166 60.0132C44.1763 59.9805 44.0664 59.9236 43.9847 59.8426C43.9022 59.7632 43.8435 59.6549 43.8082 59.5173C43.7729 59.38 43.7554 59.2086 43.7554 59.002V55.9088C43.7554 55.7955 43.6948 55.7384 43.5748 55.7384H42.6901C42.5648 55.7384 42.5002 55.7955 42.5002 55.9088V59.1186C42.5002 59.49 42.5437 59.806 42.6272 60.0672C42.7127 60.3286 42.8467 60.5406 43.0289 60.7033C43.2125 60.8664 43.4495 60.9834 43.7382 61.0554C44.0279 61.1286 44.3815 61.1653 44.796 61.1653H48.1647C48.2855 61.1653 48.3463 61.1074 48.3463 60.9936V60.2347C48.3463 60.121 48.2855 60.0641 48.1647 60.0641Z" fill="#A282FC"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M55.3091 55.582C55.2798 55.5247 55.2295 55.4917 55.1512 55.4917H54.8566H53.2167H51.6336H49.6749H49.6728C49.5959 55.4927 49.5462 55.5245 49.518 55.5813C49.5103 55.5969 49.5037 55.6141 49.4986 55.6328C49.493 55.6554 49.49 55.6791 49.49 55.7064V56.6344C49.49 56.6627 49.493 56.6856 49.4986 56.708C49.5037 56.7266 49.5103 56.7448 49.518 56.7599C49.5462 56.8162 49.5959 56.8483 49.6728 56.8483H49.6749H51.6336H53.2167H54.8566H55.1512C55.2295 56.8483 55.2796 56.8162 55.3091 56.7592C55.3157 56.7443 55.3221 56.7266 55.3271 56.7089C55.3314 56.6856 55.336 56.6627 55.336 56.6344V55.7073C55.336 55.6791 55.3316 55.6554 55.3271 55.6328C55.3221 55.6142 55.3157 55.5977 55.3091 55.582Z" fill="#A282FC"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M25.0513 56.262C24.8637 56.0837 24.6241 55.9525 24.3302 55.8669C24.0368 55.7813 23.6857 55.7384 23.2757 55.7384H20.6942H19.6695C19.5972 55.7392 19.5506 55.7645 19.5238 55.8095C19.5165 55.8219 19.5104 55.8356 19.5053 55.8505C19.5011 55.8684 19.4972 55.8873 19.4972 55.9089V56.646C19.4972 56.6685 19.5011 56.6867 19.5053 56.7045C19.5104 56.7192 19.5165 56.7337 19.5238 56.7457C19.5506 56.7904 19.5972 56.8159 19.6695 56.8159H20.6942H21.9062H23.2454C23.4669 56.8159 23.6549 56.8376 23.8063 56.8782C23.9582 56.9195 24.081 56.9864 24.1754 57.08C24.2683 57.1732 24.3355 57.2964 24.3755 57.4518C24.4164 57.6069 24.4361 57.7977 24.4361 58.0259V58.8776C24.4361 59.106 24.4164 59.2964 24.3755 59.4518C24.3355 59.6068 24.2683 59.7304 24.1754 59.8241C24.0808 59.9173 23.958 59.9837 23.8063 60.0244C23.6549 60.0663 23.4669 60.0863 23.2454 60.0863H20.475H19.6695C19.5972 60.0874 19.5506 60.1128 19.5238 60.1577C19.5165 60.1703 19.5104 60.1835 19.5053 60.1988C19.5011 60.2163 19.4972 60.2355 19.4972 60.2572V60.9937C19.4972 61.0164 19.5011 61.0339 19.5053 61.0529C19.5104 61.0682 19.5165 61.0822 19.5238 61.0935C19.5506 61.1388 19.5972 61.1653 19.6695 61.1653H20.475H21.9062H23.2755C23.6857 61.1653 24.0367 61.1213 24.3301 61.0356C24.6241 60.9522 24.8636 60.8198 25.0512 60.641C25.238 60.4639 25.3769 60.2356 25.4646 59.9592C25.5535 59.6828 25.5974 59.356 25.5974 58.9788V57.925C25.5974 57.5481 25.5534 57.221 25.4646 56.9443C25.3769 56.6678 25.2381 56.4397 25.0513 56.262Z" fill="#A282FC"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M55.3091 59.899C55.2798 59.8418 55.2295 59.8085 55.1512 59.8085H54.8566H53.2167H51.6336H49.6749H49.6728C49.5959 59.8099 49.5462 59.8418 49.518 59.8983C49.5103 59.914 49.5037 59.9307 49.4986 59.9499C49.493 59.9719 49.49 59.996 49.49 60.0234V60.9494C49.49 60.978 49.493 61 49.4986 61.0239C49.5037 61.0431 49.5103 61.0606 49.518 61.0749C49.5462 61.1319 49.5959 61.1652 49.6728 61.1652H49.6749H51.6336H53.2167H54.8566H55.1512C55.2295 61.1652 55.2796 61.1319 55.3091 61.0749C55.3157 61.0591 55.3221 61.0431 55.3271 61.0239C55.3314 61 55.336 60.978 55.336 60.9494V60.0246C55.336 59.996 55.3316 59.9719 55.3271 59.9499C55.3221 59.9305 55.3157 59.9147 55.3091 59.899Z" fill="#A282FC"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M55.3153 57.7626C55.286 57.7052 55.2357 57.6719 55.1574 57.6719H54.8628H53.2229H51.6399H49.6812H49.679C49.6021 57.6743 49.5525 57.7052 49.5243 57.7619C49.5165 57.7779 49.51 57.7945 49.5048 57.8133C49.4992 57.8358 49.4962 57.8596 49.4962 57.8872V58.8148C49.4962 58.8427 49.4992 58.8667 49.5048 58.888C49.51 58.9078 49.5165 58.9238 49.5243 58.9404C49.5525 58.9966 49.6021 59.0277 49.679 59.0286H49.6812H51.6399H53.2229H54.8628H55.1574C55.2357 59.0286 55.2858 58.9966 55.3153 58.9396C55.3219 58.9238 55.3284 58.9078 55.3334 58.8887C55.3377 58.8667 55.3422 58.8427 55.3422 58.8148V57.8872C55.3422 57.8596 55.3378 57.8358 55.3334 57.8133C55.3284 57.7942 55.3219 57.7777 55.3153 57.7626Z" fill="#A282FC"/>
-      </svg>
-    </div>
+    <br />
 
-    <p class="footer" style="text-align: center;">doxle.com</p>
+    <table>
+      <tr>
+        <td style="width: 30%"></td>
+        <td style="width: 40%"></td>
+        <td style="width: 30%">
+          <div class="button-container">
+            <a
+              href="{{ accept_url }}"
+              class="accept-button"
+              target="_blank"
+              style="
+                display: inline-block;
+                text-align: center;
+                line-height: 40px;
+                width: 108px;
+                height: 40px;
+                position: relative;
+                vertical-align: middle;
+              "
+            >
+              <table style="height: 100%; background-color: #2e2c38">
+                <tr>
+                  <td
+                    style="
+                      position: absolute;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      text-align: right;
+                      width: 50%;
+                    "
+                  >
+                    <div style="display: inline-block; color: white">
+                      Approve
+                    </div>
+                  </td>
+                  <td style="width: 50%; text-align: center">
+                    <img
+                      src="https://i.ibb.co/nwnf4MZ/Vector.png"
+                      alt="Vector"
+                      width="20"
+                      style="
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        right: 15px;
+                      "
+                    />
+                  </td>
+                </tr>
+              </table>
+            </a>
+            <a
+              href="{{ deny_url }}"
+              class="deny-button"
+              target="_blank"
+              style="
+                display: inline-block;
+                text-align: center;
+                line-height: 40px;
+                width: 108px;
+                height: 40px;
+                position: relative;
+                vertical-align: middle;
+              "
+            >
+              <table style="height: 100%; background-color: #2e2c38">
+                <tr>
+                  <td
+                    style="
+                      position: absolute;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      text-align: right;
+                      width: 50%;
+                    "
+                  >
+                    <div style="display: inline-block; color: white">Deny</div>
+                  </td>
+                  <td style="width: 50%">
+                    <img
+                      src="https://i.ibb.co/rsqffSm/add-circle.png"
+                      alt="add-circle"
+                      width="35"
+                      style="
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        right: 15px;
+                      "
+                    />
+                  </td>
+                </tr>
+              </table>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    {% endif %}
+    <table>
+      <tr>
+        <td style="width: 10%; text-align: center">
+          <img
+            src="https://i.ibb.co/wcdykDB/Group-24.png"
+            alt="Group-24"
+            width="55"
+          />
+          <p
+            style="
+              font-family: 'Nostromo Regular';
+              font-style: normal;
+              font-weight: 300;
+              font-size: 6px;
+              line-height: 8px;
+              text-align: center;
+              letter-spacing: 0.05em;
+            "
+          >
+            v 1.2
+          </p>
+        </td>
+        <td style="width: 90%"></td>
+      </tr>
+    </table>
+    <p class="footer" style="text-align: center">doxle.com</p>
   </body>
 </html>
