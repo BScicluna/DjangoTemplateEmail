@@ -108,12 +108,18 @@
       }
 
       .adornment {
-        font-size: 14px;
-        color: #999;
+        color: #616a80;
         padding-left: 10px;
         border-left: 0.5px solid #d5d7e3;
         height: 100%;
         display: inline;
+
+        font-family: IBM Plex Mono;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 13px;
+        letter-spacing: 0em;
+        text-align: left;
       }
 
       .filled-cell {
@@ -152,6 +158,10 @@
         border: 1px solid #6a3cec;
         border-radius: 50%;
         margin-right: 10px;
+      }
+
+      .purchase-list td {
+        border-right: 0.5px #d5d7e3 solid;
       }
     </style>
   </head>
@@ -311,7 +321,7 @@
         <th style="width: 15%" class="center-align">Line Cost</th>
       </tr>
       {% for line in bill_data.lines %}
-      <tr class="filled-cell">
+      <tr class="filled-cell purchase-list">
         <td style="width: 60%; padding-left: 10px">
           <div style="display: inline-block" class="blue-circle"></div>
           <span style="display: inline-block">{{ line.description }}</span>
