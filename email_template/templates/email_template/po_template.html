@@ -337,10 +337,11 @@
           </div>
         </td>
         <td style="width: 11%" class="center-align">
-          ${{ line.item_cost|floatformat:2 }}
+          <!-- to format number -->
+          {% load humanize %} ${{ line.item_cost|floatformat:0|intcomma }}
         </td>
         <td style="width: 15%" class="center-align">
-          ${{ line.line_cost|floatformat:2 }}
+          ${{ line.line_cost|floatformat:0|intcomma }}
         </td>
       </tr>
       {% endfor %}
@@ -350,7 +351,7 @@
         <td style="width: 7%" class="no-border"></td>
         <td style="width: 11%" class="no-border header-cell">Sub-Total</td>
         <td style="width: 15%" class="no-border right-align">
-          ${{ bill_data.sub_total }}
+          ${{ bill_data.sub_total|intcomma }}
         </td>
       </tr>
       <tr>
@@ -359,7 +360,7 @@
         <td style="width: 7%" class="no-border"></td>
         <td style="width: 11%" class="no-border header-cell">Tax</td>
         <td style="width: 15%" class="no-border right-align">
-          ${{ bill_data.tax }}
+          ${{ bill_data.tax|intcomma }}
         </td>
       </tr>
       <tr>
@@ -385,7 +386,7 @@
             border-bottom: 1px solid #000000;
           "
         >
-          ${{ bill_data.total }}
+          ${{ bill_data.total|intcomma }}
         </td>
       </tr>
     </table>
@@ -412,7 +413,13 @@
                 vertical-align: middle;
               "
             >
-              <table style="height: 100%; background-color: #2e2c38">
+              <table
+                style="
+                  height: 100%;
+                  background-color: #2e2c38;
+                  border-radius: 4px;
+                "
+              >
                 <tr>
                   <td
                     style="
@@ -420,14 +427,14 @@
                       top: 50%;
                       transform: translateY(-50%);
                       text-align: right;
-                      width: 50%;
+                      width: 60%;
                     "
                   >
                     <div style="display: inline-block; color: white">
                       Approve
                     </div>
                   </td>
-                  <td style="width: 50%; text-align: center">
+                  <td style="width: 40%; text-align: center">
                     <img
                       src="https://i.ibb.co/nwnf4MZ/Vector.png"
                       alt="Vector"
@@ -457,20 +464,18 @@
                 vertical-align: middle;
               "
             >
-              <table style="height: 100%; background-color: #2e2c38">
+              <table
+                style="
+                  height: 100%;
+                  background-color: #2e2c38;
+                  border-radius: 4px;
+                "
+              >
                 <tr>
-                  <td
-                    style="
-                      position: absolute;
-                      top: 50%;
-                      transform: translateY(-50%);
-                      text-align: right;
-                      width: 50%;
-                    "
-                  >
+                  <td style="text-align: right; width: 50%">
                     <div style="display: inline-block; color: white">Deny</div>
                   </td>
-                  <td style="width: 50%">
+                  <td style="width: 40%">
                     <img
                       src="https://i.ibb.co/rsqffSm/add-circle.png"
                       alt="add-circle"
